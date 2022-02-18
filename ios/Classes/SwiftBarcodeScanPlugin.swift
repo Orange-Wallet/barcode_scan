@@ -14,19 +14,20 @@ public class SwiftBarcodeScanPlugin: NSObject, FlutterPlugin, BarcodeScannerView
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
-    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         self.result = result
         if ("scan" == call.method) {
             let configuration: Configuration? = getPayload(call: call)
             showBarcodeView(config: configuration)}
         else if ("numberOfCameras" == call.method) {
-            result(AVCaptureDevice.devices(for: .video).count)
+                     result(AVCaptureDevice.DiscoverySession.accessibilityElementCount)
         } else if ("requestCameraPermission" == call.method) {
             result(false)
         } else {
             result(FlutterMethodNotImplemented)
         }
-    }
+   }
+
     
     private func showBarcodeView(config: Configuration? = nil) {
     
